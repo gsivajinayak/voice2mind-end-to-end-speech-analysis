@@ -1,0 +1,12 @@
+git+https://github.com/openai/whisper.git
+transformers
+torch
+tensorflow
+sentencepiece
+accelerate
+gTTS
+gradio
+numpy
+pandas
+matplotlib
+scikit-learn
