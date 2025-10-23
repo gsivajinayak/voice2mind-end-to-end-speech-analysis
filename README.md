@@ -20,17 +20,15 @@ This project bridges **speech understanding** and **mental state analysis**, mak
 ## 📂 Repository Contents
 
 | File / Notebook | Description |
-|-----------------|--------------|
-| `Voice2Mind_Full_Pipeline.ipynb` | End-to-end notebook combining STT → Grammar → Mental Health → TTS |
-| `stt_model/` | Whisper model files for Speech-to-Text |
-| `grammar_model/` | Transformer-based Grammar Correction (T5/BERT) |
-| `tts_model/` | Coqui TTS / pyttsx3 voice synthesis model |
+|------------------|--------------|
+| `main.ipynb` | Main notebook combining Speech-to-Text, Grammar Correction, Mental Health Detection, and TTS pipeline |
 | `DistilBERT_model.ipynb` | Fine-tuned DistilBERT model for 7-class mental health detection |
-| `biLSTM+word2vec_model.ipynb` | BiLSTM using pretrained Word2Vec embeddings |
-| `ensemble_model.ipynb` | Ensemble pipeline using Logistic Regression + RF + XGBoost |
-| `balanced_dataset.csv` | Cleaned and balanced dataset for training |
-| `requirements.txt` | Python dependencies |
-| `README.md` | Project documentation (this file) |
+| `biLSTM+pretrained_word2vec_model.ipynb` | BiLSTM using pretrained Word2Vec embeddings |
+| `Classification Report for Mental Health Detection.pdf` | Performance report with metrics and evaluation plots |
+| `Voice2Mind.pdf` | Project summary and research documentation |
+| `requirements main.txt` | Python dependencies required to run the project |
+| `README.md` | Main project documentation (this file) |
+| `README main.md` | Alternate readme or notes version |
 
 ---
 
@@ -38,17 +36,17 @@ This project bridges **speech understanding** and **mental state analysis**, mak
 
 | Stage | Model / Library | Function |
 |-------|------------------|-----------|
-| 🎧 **Speech-to-Text (STT)** | Whisper | Converts voice input into text |
-| ✍️ **Grammar Correction** | T5 / BERT | Refines and corrects sentence grammar |
+| 🎧 **Speech-to-Text (STT)** |open-ai Whisper | Converts voice input into text |
+| ✍️ **Grammar Correction** | T5 /mBART-50 | Refines and corrects sentence grammar |
 | 🧠 **Mental Health Detection** | DistilBERT, BiLSTM, Ensemble ML | Classifies mental health category |
-| 🔊 **Text-to-Speech (TTS)** | Coqui TTS / pyttsx3 | Converts AI output into realistic speech |
+| 🔊 **Text-to-Speech (TTS)** | gTTS | Converts AI output into realistic speech |
 | 🌐 **Interface** | Gradio | Interactive user interface for demo |
 
 ---
 
 ## 📊 Dataset
 
-The dataset contains **user-generated text posts** labeled into 7 mental health categories:
+The dataset consists of **user-generated text posts** labeled into **7 mental health categories**:
 
 | Label | Description |
 |:------|:-------------|
@@ -64,44 +62,53 @@ The dataset contains **user-generated text posts** labeled into 7 mental health 
 - Removed stopwords, emojis, and URLs  
 - Normalized casing and punctuation  
 - Tokenized text sequences  
-- Balanced classes (oversampling minority classes)
+- Balanced classes using oversampling and undersampling techniques
 
 ---
 
 ## 🔍 Exploratory Data Analysis (EDA)
 
-We performed:
-- Class distribution visualizations (bar + pie charts)  
-- Word clouds for each mental health class  
-- Text length histograms  
-- Most frequent terms per label  
+We conducted:
+- 📊 Class distribution analysis (bar & pie charts)
+- ☁️ Word clouds for each mental health class
+- 🧮 Text length distribution
+- 🔡 Most frequent words per label
 
-*(Add visuals under `/assets/` — like `class_distribution.png`, `wordcloud.png`, etc.)*
 
 ---
 
 ## 🧪 Models Implemented
 
-### 1️⃣ Whisper (STT)
-- Model: OpenAI Whisper (small/medium)  
-- Function: Converts audio → text with robust noise handling  
-- Accuracy: >95% transcription accuracy on clean speech  
+### 1️⃣ **Speech-to-Text (Whisper)**
+- Model: OpenAI Whisper (small/medium)
+- Function: Converts audio → text with robust noise handling
+- Accuracy: >95% on clean English speech
 
-### 2️⃣ Grammar Correction (Transformer)
-- Model: T5-small / BERT fine-tuned for grammatical correction  
+---
+
+### 2️⃣ **Grammar Correction (Transformer)**
+- Model: T5-small & mBART-50 fine-tuned for grammatical correction
 - Example:
   - Input: *“He go to school yesterday.”*  
   - Output: *“He went to school yesterday.”*
 
-### 3️⃣ Mental Health Detection
-- Model: **DistilBERT** (Transformer)  
-- Accuracy: **91.06%**  
-- Macro F1-score: **0.91**
-- Additional models: BiLSTM + Word2Vec, Ensemble ML (XGBoost + RF)
+---
 
-### 4️⃣ Text-to-Speech (TTS)
-- Model: Coqui TTS / pyttsx3  
-- Output: High-quality speech synthesis (offline supported)  
+### 3️⃣ **Mental Health Detection**
+- Model: Fine-tuned **DistilBERT (Transformer)**
+- Performance:
+  - Accuracy: **91.06%**
+  - Macro F1-score: **0.91**
+- Additional models:
+  - **BiLSTM + Word2Vec**
+  - **Ensemble ML (XGBoost + RF + Logistic Regression)**
+
+---
+
+### 4️⃣ **Text-to-Speech (TTS)**
+- Model: **Coqui TTS / pyttsx3**
+- Function: Generates realistic human-like audio output  
+- Supports **offline operation**
 
 ---
 
@@ -122,9 +129,11 @@ We performed:
 
 ---
 
-## ⚙️ How to Run
+## ⚙️ Installation & Setup
 
-1️⃣ Clone this repository  
-```bash
-git clone https://github.com/<yourusername>/voice2mind-end-to-end-speech-analysis.git
-cd voice2mind-end-to-end-speech-analysis
+### Prerequisites
+- Python 3.10 or higher
+- GPU (optional, for faster inference)
+- Install dependencies:
+  ```bash
+  pip install -r requirements\ main.txt
