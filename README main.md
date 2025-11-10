@@ -15,10 +15,6 @@ Audio → Whisper STT → T5 Grammar Correction → mBART Translation → Distil
 ## Technologies Used
 Python, Transformers, TensorFlow, Whisper, T5, mBART, DistilBERT, gTTS, Gradio
 
-## Model
-The trained DistilBERT mental-health model is stored in Google Drive at:  
-`/content/drive/MyDrive/distilbert-mental-health-model/`
-
 ## Author
 Developed by G. Sivaji 
 B.Tech, CSE, IIT Bhubaneswar
